@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Simulasi reCAPTCHA</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+    }
+
+    .captcha-box {
+        width: 320px;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 5px;
+    }
+
+    .left {
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .verified {
+        color: green;
+        font-weight: bold;
+    }
+
+    .right {
+        text-align: center;
+        font-size: 10px;
+        color: #555;
+    }
+
+    .logo-img {
+        width: 35px;
+        height: 35px;
+        display: block;
+        margin: auto;
+    }
+
+    .spin {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .recaptcha-text {
+        font-size: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="captcha-box">
+    <div class="left">
+        <input type="checkbox" id="check">
+        <span class="text" id="text">Saya bukan robot</span>
+    </div>
+
+    <div class="right">
+        <!-- Logo reCAPTCHA -->
+        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" 
+             id="logo" 
+             class="logo-img">
+        <div class="recaptcha-text">reCAPTCHA</div>
+        <div class="recaptcha-text">Privasi - Ketentuan</div>
+    </div>
+</div>
+
+<script>
+    const checkbox = document.getElementById("check");
+    const logo = document.getElementById("logo");
+    const text = document.getElementById("text");
+
+    checkbox.addEventListener("change", function() {
+        if (this.checked) {
+            text.innerText = "Memverifikasi...";
+            logo.classList.add("spin");
+
+            setTimeout(() => {
+                logo.classList.remove("spin");
+                text.innerText = "✔ Anda terverifikasi";
+                text.classList.add("verified");
+            }, 2000);
+        } else {
+            text.innerText = "Saya bukan robot";
+            text.classList.remove("verified");
+        }
+    });
+</script>
+
+</body>
+</html>
